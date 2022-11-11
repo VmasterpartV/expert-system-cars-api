@@ -19,6 +19,8 @@ class QuestionSerializer(serializers.ModelSerializer):
         depth = 1
 
 class CarSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Car
         exclude = []
+        depth = 1
