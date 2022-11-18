@@ -25,4 +25,4 @@ class Car(models.Model):
     options = models.ManyToManyField(Option, related_name='cars')
 
     def __str__(self):
-        return str(self.id) + '-' + self.response
+        return str(self.id)

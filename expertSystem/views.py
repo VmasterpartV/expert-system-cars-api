@@ -21,6 +21,22 @@ class CarViewSet(viewsets.ModelViewSet):
     queryset = Car.objects.all()
     serializer_class = CarSerializer
 
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        response = data.get('response')
+        reason = data.get('reason')
+        image = data.get('image')
+        options = data.get('options')
+        if type(options) == str:
+            options = options.split(',')
+        print(options)
+        car = Car.objects.create(response=response, reason=reason, image=image)
+        for option in options:
+            car.options.add(option)
+        car.save()
+        serializer = CarSerializer(car)
+        return Response(serializer.data)
+
     @action(detail=False, methods=['POST'])
     def find_car(self, request, *args, **kwargs):
         data = request.data
